@@ -1,0 +1,67 @@
+
+URL:
+http://localhost:8761/
+
+http://localhost:8000/currency-exchange/from/USD/to/INR
+
+http://localhost:8100/currency-conversion-feign/from/USD/to/INR/quantity/1000
+
+
+https://hub.docker.com/repository/docker/tirumalakapoor/microservices-api-1.0
+
+
+
+http://localhost:8765/currency-exchange/from/USD/to/INR
+http://localhost:8765/currency-conversion/from/USD/to/INR/quantity/10
+http://localhost:8765/currency-conversion-feign/from/USD/to/INR/quantity/10
+http://localhost:8765/currency-conversion-new/from/USD/to/INR/quantity/10
+
+
+IMPORTANT DOCKER COMMANDS :
+
+docker run -p 9411:9411 openzipkin/zipkin:2.23
+docker push docker.io/in28min/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+docker-compose --version
+docker-compose up
+docker push in28min/mmv2-naming-server:0.0.1-SNAPSHOT
+docker push in28min/mmv2-currency-conversion-service:0.0.1-SNAPSHOT
+docker push in28min/mmv2-api-gateway:0.0.1-SNAPSHOT
+watch -n 0.1 curl http://localhost:8000/sample-api
+
+Dockers creds:
+tirumalakapoor
+Mahadev@2022
+
+
+Zipkin distributed Trtacing Server : 9411
+docker run -p 9411:9411 openzipkin/zipkin:2.23
+
+In the next lecture, we will import projects into eclipse.
+
+
+
+Here is the link to bookmark:
+
+https://github.com/in28minutes/spring-microservices-v2/tree/main/04.docker
+
+========================================================================
+
+Maven Build --> spring-boot:build-image -DskipTests
+===========================================================================
+
+
+Currency exchange :
+Image [9e0c2209a495]
+docker.io/tirumalakapoor/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+
+Naming server:
+Images (69a8a05082b9):
+docker.io/tirumalakapoor/mmv2-naming-server:0.0.1-SNAPSHOT
+
+Currncy Conversion service
+ Images (c1c2b328998e):
+[[1;34mINFO[m]     [creator]           docker.io/tirumalakapoor/mmv2-currency-conversion-service:0.0.1-SNAPSHOT
+
+API GATEWAY
+*** Images (cd7aba58b193):
+[[1;34mINFO[m]     [creator]           docker.io/tirumalakapoor/mmv2-api-gateway:0.0.1-SNAPSHOT

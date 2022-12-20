@@ -1,0 +1,383 @@
+Welcome to the Google Cloud CLI! Run "gcloud -h" to get the list of available commands.
+---
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>gcloud auth login
+Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=32555940559.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&scope=openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fsqlservice.login+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Faccounts.reauth&state=46j1cl9Q3yuX6MbnZuxZpfRKxNVaSu&access_type=offline&code_challenge=aTjyGHJz81BWZXiYVCWXzsKt8MQGUxFTGWaJJ3lm-Tc&code_challenge_method=S256
+
+
+You are now logged in as [kapoor.tirumala@gmail.com].
+Your current project is [nomadic-memento-371410].  You can change this setting by running:
+  $ gcloud config set project PROJECT_ID
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl version
+error: The gcp auth plugin has been removed.
+Please use the "gke-gcloud-auth-plugin" kubectl/client-go credential plugin instead.
+See https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke for further details
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl create deployment currency-exchange --image=tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT
+error: The gcp auth plugin has been removed.
+Please use the "gke-gcloud-auth-plugin" kubectl/client-go credential plugin instead.
+See https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke for further details
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>gcloud container clusters get-credentials tirumala-cluster
+Fetching cluster endpoint and auth data.
+kubeconfig entry generated for tirumala-cluster.
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl create deployment currency-exchange --image=tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT
+deployment.apps/currency-exchange created
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl expose deployment currency-exchange --type=LoadBalancer --port=8000
+service/currency-exchange exposed
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get srv
+error: the server doesn't have a resource type "srv"
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get svc
+NAME                TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+currency-exchange   LoadBalancer   10.16.1.199   <pending>     8000:31433/TCP   29s
+kubernetes          ClusterIP      10.16.0.1     <none>        443/TCP          3h17m
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+currency-exchange-598dd85bdb-nmc74   1/1     Running   0          2m15s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get replicaset
+NAME                           DESIRED   CURRENT   READY   AGE
+currency-exchange-598dd85bdb   1         1         1       2m30s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get all
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/currency-exchange-598dd85bdb-nmc74   1/1     Running   0          2m48s
+
+NAME                        TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+service/currency-exchange   LoadBalancer   10.16.1.199   <pending>     8000:31433/TCP   96s
+service/kubernetes          ClusterIP      10.16.0.1     <none>        443/TCP          3h18m
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/currency-exchange   1/1     1            1           2m50s
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/currency-exchange-598dd85bdb   1         1         1       2m49s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get svc
+NAME                TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)          AGE
+currency-exchange   LoadBalancer   10.16.1.199   34.28.238.232   8000:31433/TCP   2m59s
+kubernetes          ClusterIP      10.16.0.1     <none>          443/TCP          3h19m
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl create deployment currency-conversion --image=tirumalakapoor/mmv2-currency-conversion-service:0.0.11-SNAPSHOT
+deployment.apps/currency-conversion created
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl expose deployment currency-conversion --type=LoadBalancer --port=8100
+service/currency-conversion exposed
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl service
+error: unknown command "service" for "kubectl"
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get service
+NAME                  TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)          AGE
+currency-conversion   LoadBalancer   10.16.12.55   <pending>       8100:31511/TCP   26s
+currency-exchange     LoadBalancer   10.16.1.199   34.28.238.232   8000:31433/TCP   6m51s
+kubernetes            ClusterIP      10.16.0.1     <none>          443/TCP          3h23m
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          57s
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          8m19s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get replicaset
+NAME                             DESIRED   CURRENT   READY   AGE
+currency-conversion-57fb7b66cf   1         1         1       70s
+currency-exchange-598dd85bdb     1         1         1       8m32s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get all
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          83s
+pod/currency-exchange-598dd85bdb-nmc74     1/1     Running   0          8m45s
+
+NAME                          TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)          AGE
+service/currency-conversion   LoadBalancer   10.16.12.55   34.66.66.249    8100:31511/TCP   67s
+service/currency-exchange     LoadBalancer   10.16.1.199   34.28.238.232   8000:31433/TCP   7m32s
+service/kubernetes            ClusterIP      10.16.0.1     <none>          443/TCP          3h24m
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/currency-conversion   1/1     1            1           84s
+deployment.apps/currency-exchange     1/1     1            1           8m47s
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/currency-conversion-57fb7b66cf   1         1         1       84s
+replicaset.apps/currency-exchange-598dd85bdb     1         1         1       8m46s
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>kubectl get service
+NAME                  TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)          AGE
+currency-conversion   LoadBalancer   10.16.12.55   34.66.66.249    8100:31511/TCP   15m
+currency-exchange     LoadBalancer   10.16.1.199   34.28.238.232   8000:31433/TCP   21m
+kubernetes            ClusterIP      10.16.0.1     <none>          443/TCP          3h38m
+
+C:\Users\Dadigae sindhu\AppData\Local\Google\Cloud SDK>cd C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get deployment currency-exchange -o yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2022-12-14T19:01:26Z"
+  generation: 1
+  labels:
+    app: currency-exchange
+  name: currency-exchange
+  namespace: default
+  resourceVersion: "90083"
+  uid: 63bd1bbf-a1a4-4735-9740-e3d66af026da
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: currency-exchange
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: currency-exchange
+    spec:
+      containers:
+      - image: tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        name: mmv2-currency-exchange-service
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-12-14T19:01:40Z"
+    lastUpdateTime: "2022-12-14T19:01:40Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-12-14T19:01:27Z"
+    lastUpdateTime: "2022-12-14T19:01:40Z"
+    message: ReplicaSet "currency-exchange-598dd85bdb" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get deployment currency-exchange -o yaml >> deployment.yaml
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>ls
+'ls' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>pwd
+'pwd' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get service currency-exchange -o yaml >> service.yaml
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl apply -f deployment.yaml
+Warning: resource deployments/currency-exchange is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+deployment.apps/currency-exchange configured
+Warning: resource services/currency-exchange is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+service/currency-exchange configured
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          30m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          37m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          30m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          37m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl diff -f deployment.yaml
+error: failed to run "diff": executable file not found in %PATH%
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          30m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          38m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl apply -f deployment.yaml
+Error from server (Conflict): error when applying patch:
+{"metadata":{"annotations":{"kubectl.kubernetes.io/last-applied-configuration":"{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"deployment.kubernetes.io/revision\":\"1\"},\"creationTimestamp\":\"2022-12-14T19:01:26Z\",\"generation\":1,\"labels\":{\"app\":\"currency-exchange\"},\"name\":\"currency-exchange\",\"namespace\":\"default\",\"resourceVersion\":\"90083\",\"uid\":\"63bd1bbf-a1a4-4735-9740-e3d66af026da\"},\"spec\":{\"progressDeadlineSeconds\":600,\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"currency-exchange\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"currency-exchange\"}},\"spec\":{\"containers\":[{\"image\":\"tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"mmv2-currency-exchange-service\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30}}},\"status\":{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2022-12-14T19:01:40Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"},{\"lastTransitionTime\":\"2022-12-14T19:01:27Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"ReplicaSet \\\"currency-exchange-598dd85bdb\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}}\n"},"generation":1,"resourceVersion":"90083"},"spec":{"replicas":2},"status":{"observedGeneration":1}}
+to:
+Resource: "apps/v1, Resource=deployments", GroupVersionKind: "apps/v1, Kind=Deployment"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on deployments.apps "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+Error from server (Conflict): error when applying patch:
+{"metadata":{"resourceVersion":"91765"}}
+to:
+Resource: "/v1, Resource=services", GroupVersionKind: "/v1, Kind=Service"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on services "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          33m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          40m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl diff -f deployment.yaml
+error: failed to run "diff": executable file not found in %PATH%
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl apply -f deployment.yaml
+Error from server (Conflict): error when applying patch:
+{"metadata":{"annotations":{"kubectl.kubernetes.io/last-applied-configuration":"{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"deployment.kubernetes.io/revision\":\"1\"},\"creationTimestamp\":\"2022-12-14T19:01:26Z\",\"generation\":1,\"labels\":{\"app\":\"currency-exchange\"},\"name\":\"currency-exchange\",\"namespace\":\"default\",\"resourceVersion\":\"90083\",\"uid\":\"63bd1bbf-a1a4-4735-9740-e3d66af026da\"},\"spec\":{\"progressDeadlineSeconds\":600,\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"currency-exchange\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"currency-exchange\"}},\"spec\":{\"containers\":[{\"image\":\"tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"mmv2-currency-exchange-service\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30}}},\"status\":{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2022-12-14T19:01:40Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"},{\"lastTransitionTime\":\"2022-12-14T19:01:27Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"ReplicaSet \\\"currency-exchange-598dd85bdb\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}}\n"},"generation":1,"resourceVersion":"90083"},"spec":{"replicas":2},"status":{"observedGeneration":1}}
+to:
+Resource: "apps/v1, Resource=deployments", GroupVersionKind: "apps/v1, Kind=Deployment"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on deployments.apps "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+Error from server (Conflict): error when applying patch:
+{"metadata":{"resourceVersion":"91765"}}
+to:
+Resource: "/v1, Resource=services", GroupVersionKind: "/v1, Kind=Service"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on services "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl apply -f deployment.yaml
+Error from server (Conflict): error when applying patch:
+{"metadata":{"annotations":{"kubectl.kubernetes.io/last-applied-configuration":"{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"deployment.kubernetes.io/revision\":\"1\"},\"creationTimestamp\":\"2022-12-14T19:01:26Z\",\"generation\":1,\"labels\":{\"app\":\"currency-exchange\"},\"name\":\"currency-exchange\",\"namespace\":\"default\",\"resourceVersion\":\"90083\",\"uid\":\"63bd1bbf-a1a4-4735-9740-e3d66af026da\"},\"spec\":{\"progressDeadlineSeconds\":600,\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"currency-exchange\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"currency-exchange\"}},\"spec\":{\"containers\":[{\"image\":\"tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"mmv2-currency-exchange-service\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30}}},\"status\":{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2022-12-14T19:01:40Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"},{\"lastTransitionTime\":\"2022-12-14T19:01:27Z\",\"lastUpdateTime\":\"2022-12-14T19:01:40Z\",\"message\":\"ReplicaSet \\\"currency-exchange-598dd85bdb\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}}\n"},"generation":1,"resourceVersion":"90083"},"spec":{"replicas":2},"status":{"observedGeneration":1}}
+to:
+Resource: "apps/v1, Resource=deployments", GroupVersionKind: "apps/v1, Kind=Deployment"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on deployments.apps "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+Error from server (Conflict): error when applying patch:
+{"metadata":{"resourceVersion":"91765"}}
+to:
+Resource: "/v1, Resource=services", GroupVersionKind: "/v1, Kind=Service"
+Name: "currency-exchange", Namespace: "default"
+for: "deployment.yaml": error when patching "deployment.yaml": Operation cannot be fulfilled on services "currency-exchange": the object has been modified; please apply your changes to the latest version and try again
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl scale deployment currency-exchange --replicas=2
+deployment.apps/currency-exchange scaled
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          37m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          44m
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          6s
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl diff -f deployment.yaml
+error: failed to run "diff": executable file not found in %PATH%
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          56m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          63m
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          19m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete pod currency-exchange-598dd85bdb-nmc74
+pod "currency-exchange-598dd85bdb-nmc74" deleted
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          57m
+currency-exchange-598dd85bdb-cfd9x     1/1     Running   0          7s
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          20m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete all -l app=currency-exchange
+pod "currency-exchange-598dd85bdb-cfd9x" deleted
+pod "currency-exchange-598dd85bdb-v5t2s" deleted
+service "currency-exchange" deleted
+deployment.apps "currency-exchange" deleted
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete all -l app=currency-coversion
+No resources found
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          65m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete all -l app=currency-conversion
+pod "currency-conversion-57fb7b66cf-5h7w9" deleted
+service "currency-conversion" deleted
+deployment.apps "currency-conversion" deleted
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 3E9D-5BFC
+
+ Directory of C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service
+
+14-12-2022  23:34    <DIR>          .
+14-12-2022  23:58    <DIR>          ..
+14-12-2022  22:22             1,243 .classpath
+09-12-2022  01:13               395 .gitignore
+14-12-2022  21:56               577 .project
+14-12-2022  21:56    <DIR>          .settings
+09-12-2022  01:13    <DIR>          backup
+15-12-2022  00:02               995 deployment.yaml
+14-12-2022  22:23             3,674 pom.xml
+09-12-2022  01:13    <DIR>          src
+14-12-2022  22:23    <DIR>          target
+09-12-2022  01:13               337 urls.txt
+               6 File(s)          7,221 bytes
+               6 Dir(s)  346,324,815,872 bytes free
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.16.0.1    <none>        443/TCP   4h31m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl apply -f deployment.yaml
+deployment.apps/currency-exchange created
+error: error validating "deployment.yaml": error validating data: ValidationError(Service.spec.ports): invalid type for io.k8s.api.core.v1.ServiceSpec.ports: got "map", expected "array"; if you choose to ignore these errors, turn validation off with --validate=false
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get all
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/currency-exchange-598dd85bdb-bgphs   1/1     Running   0          3m47s
+pod/currency-exchange-598dd85bdb-vks2l   1/1     Running   0          3m47s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.16.0.1    <none>        443/TCP   4h36m
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/currency-exchange   2/2     2            2           3m49s
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/currency-exchange-598dd85bdb   2         2         2       3m49s
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+currency-exchange-598dd85bdb-bgphs   1/1     Running   0          4m8s
+currency-exchange-598dd85bdb-vks2l   1/1     Running   0          4m8s
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get all
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/currency-exchange-598dd85bdb-bgphs   1/1     Running   0          6m10s
+pod/currency-exchange-598dd85bdb-vks2l   1/1     Running   0          6m10s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.16.0.1    <none>        443/TCP   4h38m
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/currency-exchange   2/2     2            2           6m11s
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/currency-exchange-598dd85bdb   2         2         2       6m12s
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.16.0.1    <none>        443/TCP   4h44m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>

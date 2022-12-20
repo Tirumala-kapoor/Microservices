@@ -1,0 +1,197 @@
+CRITICAL: ACTION REQUIRED: gke-gcloud-auth-plugin, which is needed for continued use of kubectl, was not found or is not executable. Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+
+gcloud init
+
+gcloud auth login
+
+gcloud container clusters get-credentials tirumala-cluster --zone us-central1-c --project nomadic-memento-371410
+
+gcloud container clusters get-credentials tirumala-cluster
+
+Images (5bdad1a75f37):
+[[1;34mINFO[m]     [creator]           docker.io/tirumalakapoor/mmv2-currency-conversion-service:0.0.11-SNAPSHOT
+
+
+
+e43431c44acd   docker.io/tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT
+
+
+---------------------------------------------------------------------------------------------------
+Deployment command in Google SDK :
+---------------------------------------------------------------------------------------------------
+kubectl create deployment currency-exchange --image=tirumalakapoor/mmv2-currency-exchange-service:0.0.11-SNAPSHOT
+kubectl expose deployment currency-exchange --type=LoadBalancer --port=8000
+
+
+kubectl create deployment currency-conversion --image=tirumalakapoor/mmv2-currency-conversion-service:0.0.11-SNAPSHOT
+kubectl expose deployment currency-conversion --type=LoadBalancer --port=8100
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+DECLARATIVE Deployment
+
+To create a Declarative YAml file , Go to the location where cuurency-exchange project is there in the cmd prompt and type the below command
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get deployment currency-exchange -o yaml
+
+Note : This command will print the entrire deployment information in a YAML format , we have to save this in a file (deployment.yaml) using the below commnad
+
+kubectl get deployment currency-exchange -o yaml >> deployment.yaml
+
+
+kubectl get deployment currency-conversion -o yaml >> deployment.yaml
+
+
+Similarly : to print the Service information in YAMl format, use the below commands
+
+kubectl get service currency-exchange -o yaml >> service.yaml
+kubectl get service currency-conversion -o yaml >> service.yaml
+
+Note : Serarch for replica in the deployment.yaml file. by default it is 1, change it to 2. inorder to deploy the new changes , use the below commnad
+
+kubectl apply -f deployemnt.yaml
+
+Manually increseing the replicaSet , using the below commnad
+kubectl scale deployment currency-exchange --replicas=2
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          57m
+currency-exchange-598dd85bdb-cfd9x     1/1     Running   0          7s
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          20m
+
+34.28.238.232 
+
+34.66.66.249
+
+---------------------------------------------------------------------------------------------------
+Google cloud SHELL commands:
+---------------------------------------------------------------------------------------------------
+Currency Exchange service  ::  curl http://34.28.238.232:8000/currency-exchange/from/USD/to/INR
+Currency Conversion service  :: curl http://34.66.66.249:8100/currency-conversion-feign/from/USD/to/INR/quantity/10 
+
+http://35.184.41.202:8000/currency-exchange/from/USD/to/INR
+
+34.136.3.171
+
+To Check the load balancing : watch curl http://34.66.66.249:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+To Delete a particular POD  : kubectl delete pod currency-exchange-598dd85bdb-nmc74
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          56m
+currency-exchange-598dd85bdb-nmc74     1/1     Running   0          63m
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          19m
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete pod currency-exchange-598dd85bdb-nmc74
+pod "currency-exchange-598dd85bdb-nmc74" deleted
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+currency-conversion-57fb7b66cf-5h7w9   1/1     Running   0          57m
+currency-exchange-598dd85bdb-cfd9x     1/1     Running   0          7s
+currency-exchange-598dd85bdb-v5t2s     1/1     Running   0          20m
+
+
+
+
+DELETE the DEPLOYEMNT
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+kubectl delete all -l app=currency-exchange
+
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete all -l app=currency-exchange
+pod "currency-exchange-598dd85bdb-cfd9x" deleted
+pod "currency-exchange-598dd85bdb-v5t2s" deleted
+service "currency-exchange" deleted
+deployment.apps "currency-exchange" deleted
+
+
+kubectl delete all -l app=currency-conversion
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-exchange-service>kubectl delete all -l app=currency-conversion
+pod "currency-conversion-57fb7b66cf-5h7w9" deleted
+service "currency-conversion" deleted
+deployment.apps "currency-conversion" deleted
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+CREATE CENTRALIZED CONGIGURATION in KUBERNETES
+
+Instead of hard-coding the enviornment variables in the deployment.yaml file [ie,  env:
+          - name: CURRENCY_EXCHANGE_URI
+            value: http://currency-exchange], we can configure it in the centrtalized configuration. This is possible using a config map
+
+kubectl create configmap currency-conversion --from-literal=CURRENCY_EXCHANGE_URI=http://currency-exchange
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-conversion-service>kubectl create configmap currency-conversion --from-literal=CURRENCY_EXCHANGE_URI=http://currency-exchange
+configmap/currency-conversion created
+
+
+TO CEHCK THE CENTRALIZED CONFIGURATION
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-conversion-service>kubectl get configmap
+NAME                  DATA   AGE
+currency-conversion   1      32s
+kube-root-ca.crt      1      69m
+
+
+CHECK THE YAML CONFIGURATION
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-conversion-service>kubectl get configmap currency-conversion -o yaml
+apiVersion: v1
+data:
+  CURRENCY_EXCHANGE_URI: http://currency-exchange
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-12-15T13:50:16Z"
+  name: currency-conversion
+  namespace: default
+  resourceVersion: "32885"
+  uid: 067a8133-55f0-4d63-9f99-e12e21d087d6
+  
+  
+TO CEHCK LOGS
+
+> kubectl logs <POD NAME  : currency-conversion-5485d87565-mlgpm>
+
+==========================================================================================================================
+LIVENESS AND REDINESS PROBES IN KUBERNETE 
+==========================================================================================================================
+This feature will ensure that there is no downtime while deploying a new version of microservices
+
+
+
+
+
+
+==========================================================================================================================
+
+
+
+
+error: The gcp auth plugin has been removed.
+Please use the "gke-gcloud-auth-plugin" kubectl/client-go credential plugin instead.
+See https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke for further details
+
+
+
+
+Images (84905f22a1d7):
+[[1;34mINFO[m]     [creator]           docker.io/tirumalakapoor/mmv2-currency-conversion-service:0.0.12-SNAPSHOT
+
+docker.io/tirumalakapoor/mmv2-currency-exchange-service:0.0.12-SNAPSHOT
+
+
+
+C:\Personal\docker\spring-microservices-v2-main\05.kubernetes\currency-conversion-service>kubectl diff -f deployment.yaml
+error: failed to run "diff": executable file not found in %PATH%
+
+

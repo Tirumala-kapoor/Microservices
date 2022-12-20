@@ -1,0 +1,100 @@
+// To start the GIT
+git init
+
+//To add the files
+git add -A
+
+//to check the status
+git status
+
+// To commit
+git commit -m "first commit"
+
+
+git config --global user.email "kapoor.tirumala@gmail.com"
+ git config --global user.name "Tirumala Kapoor"
+ 
+ 
+ DOCKER
+ 
+ 
+ Recommendation 2
+
+If you are using Window 10 and are using docker toolbox
+
+=> Use 192.168.99.100 instead of localhost.
+
+Note: If 192.168.99.100 does not work, you can find the IP by using the command docker-machine ip
+
+
+
+Reason
+
+In Window 10 when using docker toolbox, docker is configured to use the default machine with IP 192.168.99.100
+ 
+ docker run -it mcr.microsoft.com/powershell
+ 
+ https://hub.docker.com/
+ 
+ Commands:
+ 1. docker images  --> get the list of images in the local docker container
+ 2. docker run -it mcr.microsoft.com/powershell  --> to create a new docker image by name mcr.microsoft.com/powershell
+ 
+ 3. docker --version --> Docker version
+ 
+4. docker search MySQL  --> To serach for image
+ 
+ 5. docker tag in28min/todo-rest-api-h2:1.1.0.Release in28min/todo-rest-api-h2:latest --> To tag the existing image to new version (i.e. latest), here image id will be same
+
+ 6. docker pull mysql --> to pull/download the mysql image from the registry to the local, it does not run it
+ 
+ 7. docker run mysql --> it will run the mysql if available in the local, if not then it will pull and then run mysql 
+ Note: mysql is an official image in the docker container
+ 
+ 8. docker  search mysql --> to list down all the mysql images Official / not official available in the docker registry. 
+ Note: Docker official images are the curated set of repositories hosted in Docker hub. the docker has a team who will make sure these images meta set of standards and they will publish these contents in teh container 
+ 
+ 9. docker image history <image id> --> to see the history /steps involved in creating that particular image
+ 
+ 10. docker image inspect <image id/ tage name> --> show when it was created, the container, its entrypoint, jars, exposed ports, env variables, etc
+
+11. docker remove <image id> --> will remove the image from the local, not from the registry
+
+12. docker run 5000:5000 -d in28min/todo-rest-api-h2:latest --> to make this image to point to 5000 ports and make it run in a detached mode (-d)
+
+13. docker pause <1st 4 digit of image id number> --> to pause the docker 
+
+14. docker logs -f <1st 4 digit of image id number of docker conatiner>  --> to view the logs 
+
+15. docker container unpause <1st 4 digit of image id  number of docker conatiner>  --> to unpause the docker container
+
+16. docker container stop <1st 4 digit of image id  number of docker conatiner>  --> will stop/shutdown the container gracefully [means it will fisrt let the executiveService to be shutdown, drop the tables and then shutdown the application]
+
+17. docker conatiner ls -a --> list of the conatiner available in the local [shows both running and stopped container list]
+
+18. docker container prune --> will remove all the stopped containers
+
+19. docker container kill <1st 4 digit of image id  number of docker conatiner>   --> will terminate the container [without gracefully]
+
+20. docker run -p 5000:5000 -d --restart=always in28min/todo-rest-api-h2:latest --> will restart the container when the docker [default is no]
+if we specify restart=always, when we stop the container for a specific image. If we restart the docker desktop, always will make the conatiner restart/launch automatically, whenever docker container is defained as always .
+This is usefule especially if we have databases which we want to be keep them always running. 
+
+22. docker events --> help us to see what heap events are happening with docker . we can see which container is being stopped, we can see which container volume is unmounted,
+23. docker top <contaner_id> --> what is the top processes, which is running in a specific container
+
+24. docker stats --> this will show all the metrics stats regarding the container which are running
+
+25. docker run -p 5001:5000 -m 512m --cpu-quota 5000 -d --restart=always in28min/todo-rest-api-h2:latest --> add specific memory and CPU limits to this specific conatiner at a maximum 512 megabytes of  memory and 5% of CPU to this container
+
+[100000 = 100% ; 5000 = 5%]
+
+26. docker system df --> shows all the different things that ur docker daemon manages, i.e images downloaded, its size , ur conatiner , volumes, etc
+
+27 . DOCKER COMPOSE : is a tool for defining and running multi-container Docker application. lauching up all the conatiner one after the other is a tedious work. that is why we go docker compose. We have to simply configure the YAML file and with a single commnad we can launch up all the services which are defined inside the YAML file. For Windows, it is alredy installed as a part of docker desktop
+
+a. docker-compose --version
+
+  
+ 
+ 

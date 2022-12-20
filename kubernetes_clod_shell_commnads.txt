@@ -1,0 +1,9 @@
+Welcome to Cloud Shell! Type "help" to get started.
+Your Cloud Platform project in this session is set to nomadic-memento-371410.
+Use “gcloud config set project [PROJECT_ID]” to change to a different project.
+kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$ curl http://35.184.41.202:8000/currency-exchange/from/USD/to/INR
+{"id":10001,"from":"USD","to":"INR","conversionMultiple":65.00,"environment":"8000 v11 currency-exchange-598dd85bdb-qdkrj"}kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$ watch curl http://35.184.41.202:8000/currency-exchange/from/USD/to/INR                                                                        
+kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$ curl http://34.136.3.171:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+{"id":10001,"from":"USD","to":"INR","quantity":10,"conversionMultiple":65.00,"totalCalculatedAmount":650.00,"environment":"8000 v11 currency-exchange-598dd85bdb-qdkrj feign"}kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$ curl http://34.136.3.171:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+{"id":10001,"from":"USD","to":"INR","quantity":10,"conversionMultiple":65.00,"totalCalculatedAmount":650.00,"environment":"8000 v11 currency-exchange-598dd85bdb-b9bnw feign"}kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$ curl http://34.136.3.171:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+{"id":10001,"from":"USD","to":"INR","quantity":10,"conversionMultiple":65.00,"totalCalculatedAmount":650.00,"environment":"8000 v11 currency-exchange-598dd85bdb-qdkrj feign"}kapoor_tirumala@cloudshell:~ (nomadic-memento-371410)$
